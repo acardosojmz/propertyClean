@@ -14,7 +14,8 @@ fun main(){
     val urbanZone= Zone(key="URB","Urbana",10.0)
     val ruralZone= Zone(key="RUR","Rural",8.0)
 
-    val tax =Tax.Builder(folio = 1, dateOfPayment = LocalDate.now(), owner = person)
+    val tax =Tax.Builder(folio = 1, dateOfPayment = LocalDate.now(),
+        owner = person)
         .addProperty(Property(zone=urbanZone, areaInSquareMeter = 12000.0))
         .addProperty(Property(zone=ruralZone, areaInSquareMeter = 500.0))
         .build()
@@ -22,5 +23,5 @@ fun main(){
     val decimalFormat = DecimalFormat("#,###.00")
 
     println("El impuesto a pagar de ${person.fullName} es de:  " +
-            "$${decimalFormat.format(tax.totalTax())}")
+            "$${decimalFormat.format(tax.getTotal())}")
 }

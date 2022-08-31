@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">property</string>
+    <string name="person_name">Nombre completo</string>
+    <string name="genre">Sexo</string>
+    <string name="extension">Extensión</string>
+    <string name="genre_m">Mujer</string>
+    <string name="genre_h">Hombre</string>
+    <string name="zone">Zona</string>
+    <string name="add_property">Agregar predio</string>
+    <string name="single_mother">Madre soltera?</string>
+    <string name="birth_date">Fecha Nacimiento</string>
+    <string name="total">Total</string>
+
 </resources>

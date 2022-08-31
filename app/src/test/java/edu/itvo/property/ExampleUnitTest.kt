@@ -18,7 +18,7 @@ class ExampleUnitTest {
     @Test
     fun ageIsThan18(){
         val person = Person(fullName = "Rosa Maria",
-            dateOfBirth = LocalDate.parse("2000-08-20"),
+            dateOfBirth = LocalDate.parse("2010-08-20"),
             genre = "M", isSingleMother =false)
         assertEquals(true,person.getAge()>18)
     }

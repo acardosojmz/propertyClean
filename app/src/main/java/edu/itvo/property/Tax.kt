@@ -29,21 +29,21 @@ class Tax private  constructor(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun totalTax(): Double {
+    fun getTotal(): Double {
         val total= properties.sumOf {it.tax()} * (1-getDiscount())
         return (total)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getDiscount():Double {
+    private fun getDiscount():Double {
         var discount=Discount.WITHOUT
-        if (owner.getAge()>=SEVENTY_YEARS_OLD || owner.isSingleMother){
+        if (owner.getAge()>=SEVENTY_YEARS_OLD || owner.isSingleMother) {
             discount = when(dateOfPayment.month) {
                 Month.JANUARY, Month.FEBRUARY -> Discount.SEVENTY_PERCENT
                 else -> Discount.FIFTY_PERCENT
             }
         }
-        else if (dateOfPayment.month<=Month.FEBRUARY ){
+        else if (dateOfPayment.month<=Month.FEBRUARY ) {
             discount= Discount.FORTY_PERCENT
         }
         return discount.value
