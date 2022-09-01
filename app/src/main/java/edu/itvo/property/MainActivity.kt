@@ -27,60 +27,52 @@ class MainActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(
             this, android.R.layout.simple_dropdown_item_1line, zones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        binding.spZones.setSelection(0, true)
-        binding.spZones.adapter = adapter
-
-        binding.btnCalculateTotal.isEnabled = false
-
-        binding.btnAddProperty.setOnClickListener {
-            val zone = binding.spZones.selectedItem as Zone
-            val property = Property(
-                zone = zone,
-                areaInSquareMeter = binding.etAreaProperty.text.toString().toDouble()
-            )
-            properties.add(property)
-            Toast.makeText(this, R.string.add_property, Toast.LENGTH_LONG).show()
-            binding.etAreaProperty.setText("0")
-            binding.etAreaProperty.requestFocus()
-            binding.edProperties.setText(properties.toList().toString())
-            binding.btnCalculateTotal.isEnabled=true
-
-        }
-        binding.btnCalculateTotal.setOnClickListener {
-            val genre:String = when (binding.rbGenreH.isChecked){
-                true->"H"
-                else ->"M"
-            }
-
-            val person = Person(
-                fullName = binding.etName.text.toString(),
-                dateOfBirth = LocalDate.parse(binding.etDateOfBirth.text.toString()),
-                genre = genre,
-                isSingleMother = binding.chkSingleMother.isChecked
-            )
-            val tax = Tax.Builder(folio = 1, dateOfPayment = LocalDate.now(), owner = person)
-                .addAllProperties(properties)
-                .build()
-
-            val decimalFormat = DecimalFormat("#,###.00")
-
-            Toast.makeText(
-                this,
-                "El impuesto a pagar de ${person.fullName} " +
-                        "es de:  $${decimalFormat.format(tax.getTotal())}", Toast.LENGTH_LONG
-            ).show()
-            properties.clear()
-        }
         with (binding){
-            rgGenre.setOnCheckedChangeListener { _, itemSelectedId ->
-               chkSingleMother.isEnabled= when (itemSelectedId){
-                    rbGenreM.id -> true
-                    else->false
+            spZones.setSelection(0, true)
+            spZones.adapter = adapter
+            btnCalculateTotal.isEnabled = false
+            btnAddProperty.setOnClickListener {
+                val zone = spZones.selectedItem as Zone
+                val property = Property(
+                    zone = zone,
+                    areaInSquareMeter = etAreaProperty.text.toString().toDouble()
+                )
+                properties.add(property)
+                Toast.makeText(baseContext, R.string.add_property, Toast.LENGTH_LONG).show()
+                etAreaProperty.setText("0")
+                etAreaProperty.requestFocus()
+                edProperties.setText(properties.toList().toString())
+                btnCalculateTotal.isEnabled=true
+
+            }
+            btnCalculateTotal.setOnClickListener {
+                val genre:String = when (rbGenreH.isChecked){
+                    true->"H"
+                    else ->"M"
                 }
+
+                val person = Person(
+                    fullName = etName.text.toString(),
+                    dateOfBirth = LocalDate.parse(etDateOfBirth.text.toString()),
+                    genre = genre,
+                    isSingleMother = chkSingleMother.isChecked
+                )
+                val tax = Tax.Builder(folio = 1, dateOfPayment = LocalDate.now(), owner = person)
+                    .addAllProperties(properties)
+                    .build()
+
+                val decimalFormat = DecimalFormat("#,###.00")
+
+                Toast.makeText(
+                    baseContext,
+                    "El impuesto a pagar de ${person.fullName} " +
+                            "es de:  $${decimalFormat.format(tax.getTotal())}", Toast.LENGTH_LONG
+                ).show()
+                properties.clear()
+            }
+            rgGenre.setOnCheckedChangeListener { _, itemSelectedId ->
+                chkSingleMother.isEnabled= itemSelectedId==rbGenreM.id
             }
         }
-
-
     }
 }

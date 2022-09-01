@@ -8,7 +8,7 @@
     <string name="zone">Zona</string>
     <string name="add_property">Agregar predio</string>
     <string name="single_mother">Madre soltera?</string>
-    <string name="birth_date">Fecha Nacimiento</string>
+    <string name="birth_date">Fecha Nacimiento (YYYY-mm-dd)</string>
     <string name="total">Total</string>
 
 </resources>
